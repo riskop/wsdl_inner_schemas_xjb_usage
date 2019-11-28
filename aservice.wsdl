@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="aservice" targetNamespace="wsdl_name_space"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:cnamespace="c"
+  xmlns:wsdlnamespace="wsdl_name_space"
+>
+    <wsdl:types >
+        <xs:schema elementFormDefault="qualified" targetNamespace="c" >
+            <xs:import namespace="a" />
+            <xs:import namespace="b" />
+            <xs:element name="MyRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="q:A" xmlns:q="a"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MyResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="response" type="q:B" xmlns:q="b"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="a" >
+            <xs:complexType name="A">
+                <xs:sequence>
+                    <xs:element name="status" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="b" >
+            <xs:complexType name="B">
+                <xs:sequence>
+                    <xs:element name="status" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="MyInputMessage">
+        <wsdl:part name="parameters" element="cnamespace:MyRequest" />
+    </wsdl:message>
+    <wsdl:message name="MyOutputMessage">
+        <wsdl:part name="parameters" element="cnamespace:MyResponse" />
+    </wsdl:message>
+    <wsdl:portType name="MyPortType">
+        <wsdl:operation name="MyOperation">
+            <wsdl:input message="wsdlnamespace:MyInputMessage" />
+            <wsdl:output message="wsdlnamespace:MyOutputMessage" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MyPort" type="wsdlnamespace:MyPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="MyOperation">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MyService">
+        <wsdl:port name="MyPort" binding="wsdlnamespace:MyPort">
+            <soap:address location="http://localhost/anythingo" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
