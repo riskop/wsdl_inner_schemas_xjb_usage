@@ -1,7 +1,11 @@
 # wsdl_inner_schemas_xjb_usage
 very simple WSDL, schemas inside (schema sections), java package name rewrite with XJB file
 
-There are 3 namespaces in the wsdl: my_name_space, a, b.
+There are 3 namespaces in the wsdl:
+  - wsdl_name_space (for port and service),
+  - a (schema section 2),
+  - b (schema section 3),
+  - c (schema section 1).
 
 If you generate classes with the command "wsimport aservice.wsdl" then you will get 4 java packages: wsdl_name_space, a, b, c.
 wsdl_name_space contains the port and service, c contains the request and response, a and b contains inner types used in request / response.
